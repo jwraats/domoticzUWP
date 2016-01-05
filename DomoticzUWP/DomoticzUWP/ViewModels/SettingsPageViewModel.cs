@@ -19,28 +19,30 @@ namespace DomoticzUWP.ViewModels
                 _settings = Services.SettingsServices.SettingsService.Instance;
         }
 
-        public bool UseShellBackButton
+        private string _DomoticzUsernameText = "Domoticz Username";
+        public string DomoticzUsernameText
         {
-            get { return _settings.UseShellBackButton; }
-            set { _settings.UseShellBackButton = value; base.RaisePropertyChanged(); }
+            get { return _DomoticzUsernameText; }
+            set { Set(ref _DomoticzUsernameText, value); }
         }
 
-        public bool UseLightThemeButton
+        private string _DomoticzPasswordText = "Domoticz Password";
+        public string DomoticzPasswordText
         {
-            get { return _settings.AppTheme.Equals(ApplicationTheme.Light); }
-            set { _settings.AppTheme = value ? ApplicationTheme.Light : ApplicationTheme.Dark; base.RaisePropertyChanged(); }
+            get { return _DomoticzPasswordText; }
+            set { Set(ref _DomoticzPasswordText, value); }
         }
 
-        private string _BusyText = "Please wait...";
-        public string BusyText
+        private string _DomoticzUrlText = "Domoticz Host Url";
+        public string DomoticzUrlText
         {
-            get { return _BusyText; }
-            set { Set(ref _BusyText, value); }
+            get { return _DomoticzUrlText; }
+            set { Set(ref _DomoticzUrlText, value); }
         }
 
         public void ShowBusy()
         {
-            Views.Shell.SetBusy(true, _BusyText);
+            Views.Shell.SetBusy(true, _DomoticzUrlText);
         }
 
         public void HideBusy()

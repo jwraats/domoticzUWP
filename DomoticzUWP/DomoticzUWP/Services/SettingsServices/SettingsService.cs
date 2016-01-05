@@ -19,16 +19,6 @@ namespace DomoticzUWP.Services.SettingsServices
             _helper = new Template10.Services.SettingsService.SettingsHelper();
         }
 
-        public bool UseShellBackButton
-        {
-            get { return _helper.Read<bool>(nameof(UseShellBackButton), true); }
-            set
-            {
-                _helper.Write(nameof(UseShellBackButton), value);
-                ApplyUseShellBackButton(value);
-            }
-        }
-
         public ApplicationTheme AppTheme
         {
             get
@@ -40,7 +30,20 @@ namespace DomoticzUWP.Services.SettingsServices
             set
             {
                 _helper.Write(nameof(AppTheme), value.ToString());
-                ApplyAppTheme(value);
+            }
+        }
+
+        public String DomoticzHost
+        {
+            get
+            {
+                var host = "localhost";
+                var value = _helper.Read<string>(nameof(DomoticzHost), host.ToString());
+                return value;
+            }
+            set
+            {
+                _helper.Write(nameof(DomoticzHost), value.ToString());
             }
         }
 
@@ -51,6 +54,34 @@ namespace DomoticzUWP.Services.SettingsServices
             {
                 _helper.Write(nameof(CacheMaxDuration), value);
                 ApplyCacheMaxDuration(value);
+            }
+        }
+
+        public String DomoticzUsername
+        {
+            get
+            {
+                var username = "";
+                var value = _helper.Read<string>(nameof(DomoticzUsername), username.ToString());
+                return value;
+            }
+            set
+            {
+                _helper.Write(nameof(DomoticzUsername), value.ToString());
+            }
+        }
+
+        public String DomoticzPassword
+        {
+            get
+            {
+                var password = "";
+                var value = _helper.Read<string>(nameof(DomoticzPassword), password.ToString());
+                return value;
+            }
+            set
+            {
+                _helper.Write(nameof(DomoticzPassword), value.ToString());
             }
         }
     }

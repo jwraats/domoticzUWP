@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity
-    Name="f875a206-5f08-47a3-8e9f-333a646400d3"
-    Publisher = "CN=jw"
-    Version = "1.0.0.0" /> 
-  <mp:PhoneIdentity PhoneProductId="f875a206-5f08-47a3-8e9f-333a646400d3" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <Identity Name="f875a206-5f08-47a3-8e9f-333a646400d3" Publisher="CN=jw" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="f875a206-5f08-47a3-8e9f-333a646400d3" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>DomoticzUWP</DisplayName>
-    <PublisherDisplayName>jw</PublisherDisplayName>
+    <DisplayName>Domoticz UWP</DisplayName>
+    <PublisherDisplayName>Jan Willem Raats &amp; Maarten Courtin</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
