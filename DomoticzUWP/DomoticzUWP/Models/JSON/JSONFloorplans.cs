@@ -9,5 +9,6 @@ namespace DomoticzUWP.Models.JSON
     public class JSONFloorplans
     {
         public List<Floorplan> result { get; set; }
+        public String status { get; set; }
     }
 }

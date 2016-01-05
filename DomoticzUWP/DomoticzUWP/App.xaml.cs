@@ -46,10 +46,7 @@ namespace DomoticzUWP
             // perform long-running load
             await Task.Delay(0);
             APIService API = APIService.GetInstance();
-            //TODO getting this from the settings page
-            API.username = "username";
-            API.password = "password";
-            
+
             // navigate to first page
             NavigationService.Navigate(typeof(Views.MainPage));
         }

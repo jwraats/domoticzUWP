@@ -1,5 +1,6 @@
 ﻿using DomoticzUWP.Models;
 using DomoticzUWP.Models.JSON;
+using DomoticzUWP.Services.SettingsServices;
 using RestSharp.Portable;
 using RestSharp.Portable.Authenticators;
 using RestSharp.Portable.Deserializers;
@@ -19,12 +20,23 @@ namespace DomoticzUWP.Services
         public String apiURL { set; get; }
         public String username { set; get; }
         public String password { set; get; }
+        public Boolean status { set; get; }
 
         private APIService()
         {
-            apiURL = "http://192.168.178.100:4033/";
-            client = new RestClient(apiURL);
-            client.Authenticator = new HttpBasicAuthenticator();
+            apiURL = SettingsService.Instance.DomoticzHost;
+            username = SettingsService.Instance.DomoticzUsername;
+            password = SettingsService.Instance.DomoticzPassword;
+            status = true;
+            setClient();
+        }
+
+        public void setClient()
+        {
+            if (apiURL != null && apiURL != "")
+            {
+                client = new RestClient(apiURL);
+            }
         }
 
         // this will be initialized only once
@@ -35,6 +47,14 @@ namespace DomoticzUWP.Services
         {
             get
             {
+                if (instance.apiURL != SettingsService.Instance.DomoticzHost)
+                {
+                    instance.apiURL = SettingsService.Instance.DomoticzHost;
+                    instance.setClient();
+                }
+                
+                instance.username = SettingsService.Instance.DomoticzUsername;
+                instance.password = SettingsService.Instance.DomoticzPassword;
                 return instance;
             }
         }
@@ -75,6 +95,33 @@ namespace DomoticzUWP.Services
             throw new NotImplementedException();
         }
 
+        public async Task<Boolean> TestConnection()
+        {
+            Boolean connection = false;
+            if (client == null)
+            {
+                return connection;
+            }
+            
+            String url = "json.htm?api-call";
+            var request = new RestRequest(url, Method.GET);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", string.Format("Basic {0}", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"))));
+            try
+            {
+                var respons = await client.Execute(request);
+                if (respons != null && respons.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    connection = true;
+                }
+            }
+            catch (Exception e)
+            {
+                connection = false;
+            }
+            return connection;
+        }
+
         public async Task<Floorplan> getFloorplan()
         {
             JSONFloorplans floorplans = new JSONFloorplans();
@@ -97,6 +144,12 @@ namespace DomoticzUWP.Services
             {
                 System.Diagnostics.Debug.WriteLine(e);
             }
+
+            if (floorplans.status != "OK")
+            {
+                status = false;
+            }
+
             if (floorplans.result.Count != 0)
             {
                 return floorplans.result[0];

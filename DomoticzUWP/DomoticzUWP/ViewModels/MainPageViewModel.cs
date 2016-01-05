@@ -13,7 +13,7 @@ namespace DomoticzUWP.ViewModels
 {
     public class MainPageViewModel : Mvvm.ViewModelBase
     {
-        private ImageSource _FloorplanSource = new Windows.UI.Xaml.Media.Imaging.BitmapImage();
+        private ImageSource _FloorplanSource = null;
         public ImageSource FloorplanSource { get { return _FloorplanSource; } set { Set(ref _FloorplanSource, value); base.RaisePropertyChanged(); } }
         private ObservableCollection<Device> _DevicesItems = new ObservableCollection<Device>();
         public ObservableCollection<Device> DevicesItems { get { return _DevicesItems; } set { Set(ref _DevicesItems, value); base.RaisePropertyChanged(); } }
@@ -28,9 +28,13 @@ namespace DomoticzUWP.ViewModels
         public async Task loadFloorplan()
         {
             Floorplan fp = await APIService.GetInstance().getFloorplan();
-            FloorplanSource = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.GetInstance().apiURL + fp.Image));
-            List<Device> devices = await APIService.GetInstance().getDevicesByFloor(fp);
-            devices.ForEach(DevicesItems.Add);
+            if (fp != null && APIService.GetInstance().status)
+            {
+                FloorplanSource = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.GetInstance().apiURL + fp.Image));
+                List<Device> devices = await APIService.GetInstance().getDevicesByFloor(fp);
+                devices.ForEach(DevicesItems.Add);
+            }
+            
 
         }
 

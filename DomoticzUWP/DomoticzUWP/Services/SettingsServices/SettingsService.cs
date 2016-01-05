@@ -1,5 +1,7 @@
 using System;
+using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace DomoticzUWP.Services.SettingsServices
 {
@@ -37,7 +39,7 @@ namespace DomoticzUWP.Services.SettingsServices
         {
             get
             {
-                var host = "localhost";
+                var host = "http://192.168.178.100/";
                 var value = _helper.Read<string>(nameof(DomoticzHost), host.ToString());
                 return value;
             }

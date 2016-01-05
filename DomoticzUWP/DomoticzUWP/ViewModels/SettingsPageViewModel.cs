@@ -1,5 +1,10 @@
+using DomoticzUWP.Services;
 using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace DomoticzUWP.ViewModels
 {
@@ -12,42 +17,54 @@ namespace DomoticzUWP.ViewModels
     public class SettingsPartViewModel : Mvvm.ViewModelBase
     {
         Services.SettingsServices.SettingsService _settings;
+        public SolidColorBrush ColorTest {
+            get; set;
+        }
+
+        public async Task AsyncTestConnection()
+        {
+            ColorTest = new SolidColorBrush(Colors.Orange);
+            Boolean connection = await APIService.GetInstance().TestConnection();
+            if (connection)
+            {
+                ColorTest = new SolidColorBrush(Colors.Green);
+            }
+            else
+            {
+                ColorTest = new SolidColorBrush(Colors.Red);
+            }
+        }
+
+        public void TestConnection()
+        {
+            ColorTest = new SolidColorBrush(Colors.Orange);
+            var test = AsyncTestConnection();
+        }
 
         public SettingsPartViewModel()
         {
             if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
                 _settings = Services.SettingsServices.SettingsService.Instance;
+
+            ColorTest = new SolidColorBrush(Colors.LightGray);
         }
 
-        private string _DomoticzUsernameText = "Domoticz Username";
         public string DomoticzUsernameText
         {
-            get { return _DomoticzUsernameText; }
-            set { Set(ref _DomoticzUsernameText, value); }
+            get { return _settings.DomoticzUsername; }
+            set { _settings.DomoticzUsername = value; }
         }
 
-        private string _DomoticzPasswordText = "Domoticz Password";
         public string DomoticzPasswordText
         {
-            get { return _DomoticzPasswordText; }
-            set { Set(ref _DomoticzPasswordText, value); }
+            get { return _settings.DomoticzPassword; }
+            set { _settings.DomoticzPassword = value; }
         }
 
-        private string _DomoticzUrlText = "Domoticz Host Url";
         public string DomoticzUrlText
         {
-            get { return _DomoticzUrlText; }
-            set { Set(ref _DomoticzUrlText, value); }
-        }
-
-        public void ShowBusy()
-        {
-            Views.Shell.SetBusy(true, _DomoticzUrlText);
-        }
-
-        public void HideBusy()
-        {
-            Views.Shell.SetBusy(false);
+            get { return _settings.DomoticzHost; }
+            set { _settings.DomoticzHost = value; }
         }
     }
 
