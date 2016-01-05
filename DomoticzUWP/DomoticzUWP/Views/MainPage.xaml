@@ -56,43 +56,29 @@
 
         <!--  page header  -->
 
-        <controls:PageHeader BackButtonVisibility="Collapsed" Content="Main Page" Frame="{x:Bind Frame}">
+        <controls:PageHeader BackButtonVisibility="Collapsed" Content="Dashboard" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
             <controls:PageHeader.SecondaryCommands>
-                <AppBarButton Click="{x:Bind ViewModel.GotoPrivacy}" Label="Privacy" />
-                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
             </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
 
         <!--  page content  -->
-
-        <StackPanel Grid.Row="1" VerticalAlignment="Top"
-                    Orientation="Horizontal" Padding="12,8,0,0">
-
-            <controls:Resizer>
-                <TextBox Width="200" MinWidth="200"
-                         MinHeight="60" Margin="0"
-                         Header="Parameter to pass"
-                         Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         TextWrapping="Wrap">
-                    <Interactivity:Interaction.Behaviors>
-                        <Behaviors:TextBoxEnterKeyBehavior>
-                            <Core:CallMethodAction MethodName="GotoDetailsPage" TargetObject="{Binding}" />
-                        </Behaviors:TextBoxEnterKeyBehavior>
-                        <Core:EventTriggerBehavior>
-                            <Behaviors:FocusAction/>
-                        </Core:EventTriggerBehavior>
-                    </Interactivity:Interaction.Behaviors>
-                </TextBox>
-            </controls:Resizer>
-
-            <Button Margin="12,0" VerticalAlignment="Bottom"
-                    Click="{x:Bind ViewModel.GotoDetailsPage}" Content="Submit" />
-
-        </StackPanel>
-
+        <Image x:Name="FloorplanImg" Source="{Binding FloorplanSource}" Height="Auto" Width="Auto" Stretch="None" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
+        <ItemsControl ItemsSource="{Binding Path=DevicesItems}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Name}" Margin="{Binding Margin}" Command="{Binding Command}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Page>
 

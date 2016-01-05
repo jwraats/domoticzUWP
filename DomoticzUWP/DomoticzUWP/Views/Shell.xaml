@@ -16,8 +16,38 @@
                 <Controls:HamburgerMenu.PrimaryButtons>
                     <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
                         <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="Street" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Dashboard" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
+                        <StackPanel Orientation="Horizontal">
                             <SymbolIcon Width="48" Height="48" Symbol="Home" />
-                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Home" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Switches" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="Slideshow" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Scenes" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="SetTile" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Temperature" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="Send" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Weather" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="Scan" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Utility" />
                         </StackPanel>
                     </Controls:HamburgerButtonInfo>
                 </Controls:HamburgerMenu.PrimaryButtons>

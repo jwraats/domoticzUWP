@@ -100,8 +100,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\Floorplan.cs" />
+    <Compile Include="Models\JSON\JSONDevices.cs" />
+    <Compile Include="Models\JSON\JSONFloorplans.cs" />
+    <Compile Include="Models\JSON\JSONLights.cs" />
+    <Compile Include="Models\Light.cs" />
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\APIService.cs" />
     <Compile Include="Services\SettingsServices\ISettingsService.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.Apply.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
@@ -174,7 +181,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Strings\" />
   </ItemGroup>
   <ItemGroup>
