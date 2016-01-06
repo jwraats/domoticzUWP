@@ -76,7 +76,7 @@
                                  Margin="0,154,0,0" HorizontalAlignment="Left"
                                  Header="Url"
                                  Text="{Binding DomoticzUrlText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Margin="0,220,0,0" Content="Test connection" Background="{Binding ColorTest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <Button x:Name="ConnectionBtn" Margin="0,220,0,0" Content="Test connection">
                             <Interactivity:Interaction.Behaviors>
                                 <Core:EventTriggerBehavior EventName="Click">
                                     <Core:CallMethodAction MethodName="TestConnection" TargetObject="{Binding Mode=OneWay}" />

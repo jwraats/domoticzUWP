@@ -201,6 +201,34 @@ namespace DomoticzUWP.Services
             }
             return devices.result;
         }
+
+        public async Task<Device> getDeviceByIdx(int idx)
+        {
+            JSONDevices devices = new JSONDevices();
+            String url = "json.htm?type=devices&rid=" + idx;
+            var request = new RestRequest(url, Method.GET);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", string.Format("Basic {0}", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"))));
+
+            try
+            {
+                var respons = await client.Execute(request);
+                if (respons != null)
+                {
+                    JsonDeserializer deserial = new JsonDeserializer();
+                    devices = deserial.Deserialize<JSONDevices>(respons);
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            if (devices.result.Count == 1)
+            {
+                return devices.result[0];
+            }
+            return null;
+        }
     }
     class CommandHandler : ICommand
     {

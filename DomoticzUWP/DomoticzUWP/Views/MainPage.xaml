@@ -66,8 +66,8 @@
         </controls:PageHeader>
 
         <!--  page content  -->
-        <Image x:Name="FloorplanImg" Source="{Binding FloorplanSource}" Height="Auto" Width="Auto" Stretch="None" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
-        <ItemsControl ItemsSource="{Binding Path=DevicesItems}">
+        <Image x:Name="FloorplanImg" Source="{Binding FloorplanSource, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" Stretch="None" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
+        <ItemsControl ItemsSource="{Binding Path=DevicesItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas/>
@@ -75,7 +75,12 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Name}" Margin="{Binding Margin}" Command="{Binding Command}"/>
+                    <Button Margin="{Binding Margin}" Command="{Binding Command}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding IconPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{Binding CounterToday, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

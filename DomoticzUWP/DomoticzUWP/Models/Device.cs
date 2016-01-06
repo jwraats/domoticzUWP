@@ -27,6 +27,9 @@ namespace DomoticzUWP.Models
         public String ID { get; set; }
         public String LastUpdate { get; set; }
         public String Name { get; set; }
+        public String Image { get; set; }
+        public String TypeImg { get; set; }
+        public String Status { get; set; }
         public int XOffset { get; set; }
         public int YOffset { get; set; }
         public int idx { get; set; }
@@ -36,8 +39,43 @@ namespace DomoticzUWP.Models
             get
             {
                 return new CommandHandler(async () =>
-                    await APIService.GetInstance().FloorSwitch(idx)
+                    await FloorSwitch()
                 );
+            }
+        }
+
+        private async System.Threading.Tasks.Task FloorSwitch()
+        {
+            await APIService.GetInstance().FloorSwitch(idx);
+            Device d = await APIService.GetInstance().getDeviceByIdx(idx);
+            if (d != null)
+            {
+                Status = d.Status;
+                Image = d.Image;
+                TypeImg = d.TypeImg;
+                LastUpdate = d.LastUpdate;
+                Data = d.Data;
+            }
+        }
+
+        public Windows.UI.Xaml.Media.Imaging.BitmapImage IconPath
+        {
+            get
+            {
+                
+                if (Status == "Set Level")
+                {
+                    Status = "Off";
+                }
+                String imagePNG = Image +"48_"+ Status +".png";
+                switch (TypeImg)
+                {
+                    case "counter":
+                        imagePNG = "counter.png";
+                        break;
+
+                }
+                return new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.GetInstance().apiURL + "/images/"+ imagePNG));
             }
         }
     }

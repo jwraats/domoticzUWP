@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -17,27 +18,29 @@ namespace DomoticzUWP.ViewModels
     public class SettingsPartViewModel : Mvvm.ViewModelBase
     {
         Services.SettingsServices.SettingsService _settings;
-        public SolidColorBrush ColorTest {
-            get; set;
-        }
 
         public async Task AsyncTestConnection()
         {
-            ColorTest = new SolidColorBrush(Colors.Orange);
             Boolean connection = await APIService.GetInstance().TestConnection();
+            String message = "NO Connection! Maybe URL or username/password is incorrect.";
             if (connection)
             {
-                ColorTest = new SolidColorBrush(Colors.Green);
+                message = "Connection is correct!";
             }
-            else
-            {
-                ColorTest = new SolidColorBrush(Colors.Red);
-            }
+
+            var messageDialog = new MessageDialog(message);
+
+
+            // Set the command to be invoked when escape is pressed
+            messageDialog.CancelCommandIndex = 1;
+
+            // Show the message dialog
+            await messageDialog.ShowAsync();
+
         }
 
         public void TestConnection()
         {
-            ColorTest = new SolidColorBrush(Colors.Orange);
             var test = AsyncTestConnection();
         }
 
@@ -45,26 +48,24 @@ namespace DomoticzUWP.ViewModels
         {
             if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
                 _settings = Services.SettingsServices.SettingsService.Instance;
-
-            ColorTest = new SolidColorBrush(Colors.LightGray);
         }
 
         public string DomoticzUsernameText
         {
             get { return _settings.DomoticzUsername; }
-            set { _settings.DomoticzUsername = value; }
+            set { _settings.DomoticzUsername = value; base.RaisePropertyChanged(); }
         }
 
         public string DomoticzPasswordText
         {
             get { return _settings.DomoticzPassword; }
-            set { _settings.DomoticzPassword = value; }
+            set { _settings.DomoticzPassword = value; base.RaisePropertyChanged(); }
         }
 
         public string DomoticzUrlText
         {
             get { return _settings.DomoticzHost; }
-            set { _settings.DomoticzHost = value; }
+            set { _settings.DomoticzHost = value; base.RaisePropertyChanged(); }
         }
     }
 
