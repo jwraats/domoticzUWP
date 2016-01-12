@@ -59,12 +59,6 @@ namespace DomoticzUWP.Services
             }
         }
 
-        // or, a Method?
-        public static APIService GetInstance()
-        {
-            return instance;
-        }
-
         public async Task<List<Light>> getLights()
         {
             JSONLights lights = new JSONLights();
@@ -115,7 +109,7 @@ namespace DomoticzUWP.Services
                     connection = true;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 connection = false;
             }

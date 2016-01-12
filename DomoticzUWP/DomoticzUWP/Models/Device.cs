@@ -46,8 +46,8 @@ namespace DomoticzUWP.Models
 
         private async System.Threading.Tasks.Task FloorSwitch()
         {
-            await APIService.GetInstance().FloorSwitch(idx);
-            Device d = await APIService.GetInstance().getDeviceByIdx(idx);
+            await APIService.Instance.FloorSwitch(idx);
+            Device d = await APIService.Instance.getDeviceByIdx(idx);
             if (d != null)
             {
                 Status = d.Status;
@@ -75,7 +75,7 @@ namespace DomoticzUWP.Models
                         break;
 
                 }
-                return new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.GetInstance().apiURL + "/images/"+ imagePNG));
+                return new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.Instance.apiURL + "/images/"+ imagePNG));
             }
         }
     }

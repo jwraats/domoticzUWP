@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -16,6 +17,7 @@ namespace DomoticzUWP.ViewModels
         private ImageSource _FloorplanSource = null;
         private Floorplan fp = null;
         public ImageSource FloorplanSource { get { return _FloorplanSource; } set { Set(ref _FloorplanSource, value); base.RaisePropertyChanged(); } }
+        public double ImageWidth { get {  return ApplicationView.GetForCurrentView().VisibleBounds.Width; }   }
         private ObservableCollection<Device> _DevicesItems = new ObservableCollection<Device>();
         public ObservableCollection<Device> DevicesItems { get { return _DevicesItems; } set { Set(ref _DevicesItems, value); base.RaisePropertyChanged(); } }
         public MainPageViewModel()
@@ -26,14 +28,15 @@ namespace DomoticzUWP.ViewModels
             var loadFP = loadFloorplan(); 
         }
 
+
         public async Task loadFloorplan()
         {
-            fp = await APIService.GetInstance().getFloorplan();
-            if (fp != null && APIService.GetInstance().status)
+            fp = await APIService.Instance.getFloorplan();
+            if (fp != null && APIService.Instance.status)
             {
-                FloorplanSource = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.GetInstance().apiURL + fp.Image));
+                FloorplanSource = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.Instance.apiURL + fp.Image));
 
-                List<Device> devices = await APIService.GetInstance().getDevicesByFloor(fp);
+                List<Device> devices = await APIService.Instance.getDevicesByFloor(fp);
                 DevicesItems = new ObservableCollection<Device>();
                 devices.ForEach(DevicesItems.Add);
                 base.RaisePropertyChanged();
