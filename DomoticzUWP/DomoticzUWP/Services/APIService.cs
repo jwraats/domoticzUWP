@@ -42,7 +42,6 @@ namespace DomoticzUWP.Services
         // this will be initialized only once
         private static APIService instance = new APIService();
 
-        // Do you prefer a Property?
         public static APIService Instance
         {
             get
@@ -57,12 +56,6 @@ namespace DomoticzUWP.Services
                 instance.password = SettingsService.Instance.DomoticzPassword;
                 return instance;
             }
-        }
-
-        // or, a Method?
-        public static APIService GetInstance()
-        {
-            return instance;
         }
 
         public async Task<List<Light>> getLights()
@@ -117,6 +110,7 @@ namespace DomoticzUWP.Services
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 connection = false;
             }
             return connection;
@@ -157,7 +151,7 @@ namespace DomoticzUWP.Services
             return new Floorplan();
         }
 
-        public async Task FloorSwitch(int idx)
+        public async Task toggleSwitch(int idx)
         {
             String url = "json.htm?type=command&param=switchlight&idx="+idx+"&switchcmd=Toggle";
             var request = new RestRequest(url, Method.GET);

@@ -33,21 +33,22 @@ namespace DomoticzUWP.Models
         public int XOffset { get; set; }
         public int YOffset { get; set; }
         public int idx { get; set; }
-        public Windows.UI.Xaml.Thickness Margin { get { return new Windows.UI.Xaml.Thickness(XOffset, YOffset, 0, 0); } }
+        public Windows.UI.Xaml.Thickness Margin { get { return new Windows.UI.Xaml.Thickness(XOffset-15, YOffset+15, 0, 0); } }
+        public Action<bool> reloadDevices { get; set; }
 
         public ICommand Command {
             get
             {
                 return new CommandHandler(async () =>
-                    await FloorSwitch()
+                    await toggleSwitch()
                 );
             }
         }
 
-        private async System.Threading.Tasks.Task FloorSwitch()
+        private async System.Threading.Tasks.Task toggleSwitch()
         {
-            await APIService.GetInstance().FloorSwitch(idx);
-            Device d = await APIService.GetInstance().getDeviceByIdx(idx);
+            await APIService.Instance.toggleSwitch(idx);
+            Device d = await APIService.Instance.getDeviceByIdx(idx);
             if (d != null)
             {
                 Status = d.Status;
@@ -55,6 +56,7 @@ namespace DomoticzUWP.Models
                 TypeImg = d.TypeImg;
                 LastUpdate = d.LastUpdate;
                 Data = d.Data;
+                reloadDevices(true);
             }
         }
 
@@ -73,9 +75,9 @@ namespace DomoticzUWP.Models
                     case "counter":
                         imagePNG = "counter.png";
                         break;
-
                 }
-                return new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.GetInstance().apiURL + "/images/"+ imagePNG));
+
+                return new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.Instance.apiURL + "/images/"+ imagePNG));
             }
         }
     }

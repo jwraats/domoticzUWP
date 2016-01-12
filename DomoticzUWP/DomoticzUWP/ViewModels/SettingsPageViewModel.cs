@@ -21,7 +21,7 @@ namespace DomoticzUWP.ViewModels
 
         public async Task AsyncTestConnection()
         {
-            Boolean connection = await APIService.GetInstance().TestConnection();
+            Boolean connection = await APIService.Instance.TestConnection();
             String message = "NO Connection! Maybe URL or username/password is incorrect.";
             if (connection)
             {

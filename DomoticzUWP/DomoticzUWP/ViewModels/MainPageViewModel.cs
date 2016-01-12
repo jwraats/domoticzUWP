@@ -26,20 +26,35 @@ namespace DomoticzUWP.ViewModels
             var loadFP = loadFloorplan(); 
         }
 
+        public void reloadDevices(bool change)
+        {
+            var loadFP = loadDevices(fp);
+        }
+
         public async Task loadFloorplan()
         {
-            fp = await APIService.GetInstance().getFloorplan();
-            if (fp != null && APIService.GetInstance().status)
+            fp = await APIService.Instance.getFloorplan();
+            if (fp != null && APIService.Instance.status)
             {
-                FloorplanSource = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.GetInstance().apiURL + fp.Image));
-
-                List<Device> devices = await APIService.GetInstance().getDevicesByFloor(fp);
-                DevicesItems = new ObservableCollection<Device>();
-                devices.ForEach(DevicesItems.Add);
-                base.RaisePropertyChanged();
+                FloorplanSource = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.Instance.apiURL + fp.Image));
+                await loadDevices(fp);
+                
             }
-            
+        }
 
+        private async Task loadDevices(Floorplan fp)
+        {
+            if (fp != null && APIService.Instance.status)
+            {
+                List<Device> devices = await APIService.Instance.getDevicesByFloor(fp);
+                DevicesItems = new ObservableCollection<Device>();
+
+                devices.ForEach(delegate (Device d)
+                {
+                    d.reloadDevices = reloadDevices;
+                    DevicesItems.Add(d);
+                });
+            }
         }
 
             string _Value = string.Empty;
