@@ -17,7 +17,6 @@ namespace DomoticzUWP.ViewModels
         private ImageSource _FloorplanSource = null;
         private Floorplan fp = null;
         public ImageSource FloorplanSource { get { return _FloorplanSource; } set { Set(ref _FloorplanSource, value); base.RaisePropertyChanged(); } }
-        public double ImageWidth { get {  return ApplicationView.GetForCurrentView().VisibleBounds.Width; }   }
         private ObservableCollection<Device> _DevicesItems = new ObservableCollection<Device>();
         public ObservableCollection<Device> DevicesItems { get { return _DevicesItems; } set { Set(ref _DevicesItems, value); base.RaisePropertyChanged(); } }
         public MainPageViewModel()
