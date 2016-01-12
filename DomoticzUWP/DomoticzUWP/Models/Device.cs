@@ -76,7 +76,6 @@ namespace DomoticzUWP.Models
                         imagePNG = "counter.png";
                         break;
                 }
-
                 return new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(APIService.Instance.apiURL + "/images/"+ imagePNG));
             }
         }

@@ -16,6 +16,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+
         <!--  #region default visual states  -->
 
         <VisualStateManager.VisualStateGroups>
@@ -65,25 +66,31 @@
             </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
 
+
         <!--  page content  -->
-        <Image x:Name="FloorplanImg" Source="{Binding FloorplanSource, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" Stretch="None" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
-        <ItemsControl ItemsSource="{Binding Path=DevicesItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Button Margin="{Binding Margin}" Command="{Binding Command}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding IconPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="{Binding CounterToday, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </Button>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Center" Height="Auto" Grid.Row="1" VerticalAlignment="Top" Width="Auto">
+            <Grid>
+                <Image x:Name="FloorplanImg" Source="{Binding FloorplanSource, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" Stretch="None" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
+                <ItemsControl ItemsSource="{Binding Path=DevicesItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="{Binding Margin}" Command="{Binding Command}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding IconPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text="{Binding CounterToday, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </Grid>
+        </ScrollViewer>            
     </Grid>
 </Page>
 
