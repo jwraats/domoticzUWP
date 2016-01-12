@@ -33,7 +33,7 @@ namespace DomoticzUWP.Models
         public int XOffset { get; set; }
         public int YOffset { get; set; }
         public int idx { get; set; }
-        public Windows.UI.Xaml.Thickness Margin { get { return new Windows.UI.Xaml.Thickness(XOffset-15, YOffset+15, 0, 0); } }
+        public Windows.UI.Xaml.Thickness Margin { get { return new Windows.UI.Xaml.Thickness(XOffset-19, YOffset-19, 0, 0); } }
         public Action<bool> reloadDevices { get; set; }
 
         public ICommand Command {

@@ -108,7 +108,7 @@ namespace DomoticzUWP.Services
                     connection = true;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.ToString());
                 connection = false;
