@@ -25,12 +25,23 @@ namespace DomoticzUWP.ViewModels
             var lights = loadLights();
         }
 
-        public async Task loadLights()
+        public void reloadDevices(bool change)
+        {
+            var lights = loadLights();
+        }
+
+        private async Task loadLights()
         {
             List<Device> devices = await APIService.Instance.getDevices("light");
             DevicesItems = new ObservableCollection<Device>();
-            devices.ForEach(DevicesItems.Add);
+            devices.ForEach(delegate (Device d)
+            {
+                d.reloadDevices = reloadDevices;
+                DevicesItems.Add(d);
+            });
         }
+        
+
 
         private string _Value = string.Empty;
         public string Value { get { return _Value; } set { Set(ref _Value, value); } }
