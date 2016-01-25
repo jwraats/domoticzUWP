@@ -112,10 +112,14 @@
     <Compile Include="Services\SettingsServices\ISettingsService.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.Apply.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
+    <Compile Include="ViewModels\UtilityPageViewModel.cs" />
     <Compile Include="ViewModels\SwitchesPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="Views\UtilityPage.xaml.cs">
+      <DependentUpon>UtilityPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SwitchesPage.xaml.cs">
       <DependentUpon>SwitchesPage.xaml</DependentUpon>
     </Compile>
@@ -166,6 +170,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\UtilityPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SwitchesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
