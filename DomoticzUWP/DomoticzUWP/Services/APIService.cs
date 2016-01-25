@@ -196,6 +196,40 @@ namespace DomoticzUWP.Services
             return devices.result;
         }
 
+        public async Task<List<Device>> getDevices()
+        {
+            return await getDevices("");
+        }
+
+        public async Task<List<Device>> getDevices(String filter)
+        {
+            JSONDevices devices = new JSONDevices();
+            String url = "json.htm?type=devices&used=true";
+            if (filter != "")
+            {
+                url += "&filter=" + filter;
+            }
+            
+            var request = new RestRequest(url, Method.GET);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", string.Format("Basic {0}", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"))));
+
+            try
+            {
+                var respons = await client.Execute(request);
+                if (respons != null)
+                {
+                    JsonDeserializer deserial = new JsonDeserializer();
+                    devices = deserial.Deserialize<JSONDevices>(respons);
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            return devices.result;
+        }
+
         public async Task<Device> getDeviceByIdx(int idx)
         {
             JSONDevices devices = new JSONDevices();

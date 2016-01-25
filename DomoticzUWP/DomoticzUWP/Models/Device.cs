@@ -33,6 +33,8 @@ namespace DomoticzUWP.Models
         public int XOffset { get; set; }
         public int YOffset { get; set; }
         public int idx { get; set; }
+        public String LastSeen { get { return "Last seen: " + LastUpdate; } }
+        public String Type { get { return "Type: " + TypeImg; } }
         public Windows.UI.Xaml.Thickness Margin { get { return new Windows.UI.Xaml.Thickness(XOffset, YOffset, 0, 0); } }
 
         public ICommand Command {

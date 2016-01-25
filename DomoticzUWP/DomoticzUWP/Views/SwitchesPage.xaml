@@ -1,4 +1,4 @@
-<Page x:Class="DomoticzUWP.Views.MainPage"
+<Page x:Class="DomoticzUWP.Views.SwitchesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Behaviors="using:Template10.Behaviors"
@@ -8,16 +8,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:DomoticzUWP.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:vm="using:DomoticzUWP.ViewModels" mc:Ignorable="d">
-
+      xmlns:vm="using:DomoticzUWP.ViewModels" x:Name="ThisPage"
+      mc:Ignorable="d">
+    
     <Page.DataContext>
-        <vm:MainPageViewModel />
+        <vm:SwitchesPageViewModel />
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-
-        <!--  #region default visual states  -->
+        <!--  adaptive states  -->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
                 <VisualState x:Name="VisualStateNarrow">
@@ -47,48 +47,53 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <!--  #endregion  -->
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <!--  page header  -->
-
-        <controls:PageHeader BackButtonVisibility="Collapsed" Content="Dashboard" Frame="{x:Bind Frame}">
+        <!--  header  -->
+        <controls:PageHeader Frame="{x:Bind Frame}" Text="Switches Page">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
-            <controls:PageHeader.SecondaryCommands>
-                <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
-            </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
 
-
-        <!--  page content  -->
+        <!--  #region content  -->
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" Height="Auto" Grid.Row="1" VerticalAlignment="Top" Width="Auto">
-            <Grid>
-                <Image x:Name="FloorplanImg" Source="{Binding FloorplanSource, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" Stretch="None" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
-                <ItemsControl ItemsSource="{Binding Path=DevicesItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Margin="{Binding Margin}" Command="{Binding Command}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding IconPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBlock Text="{Binding CounterToday, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Path=DevicesItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                        <Grid HorizontalAlignment="Center" Width="350" Margin="10" CornerRadius="10" Background="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="3*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel>
+                                <Grid BorderThickness="1" BorderBrush="Black" Margin="10" Grid.Row="0" Background="Aqua">
+                                    <TextBlock Foreground="Black" HorizontalAlignment="Left" FontFamily="Arial" Margin="5" Text="{Binding Name}"/>
+                                    <TextBlock Foreground="Black" HorizontalAlignment="Right" FontFamily="Arial" Margin="5" FontSize="15" Text="{Binding Status}"/>
+                                </Grid>
+                                <StackPanel Margin="10" Orientation="Horizontal" Grid.Row="1">
+                                    <Button Command="{Binding Command}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding IconPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBlock Text="{Binding CounterToday, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+                                    </Button>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Foreground="Black" FontSize="17" FontFamily="Arial" Text="{Binding LastSeen}"/>
+                                        <TextBlock Foreground="Black" FontSize="17" FontFamily="Arial" Text="{Binding Type}"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </Button>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Grid>
-        </ScrollViewer>            
+                            </StackPanel>
+                        </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <!--  #endregion  -->
+
     </Grid>
 </Page>
 

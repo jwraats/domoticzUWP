@@ -51,7 +51,6 @@
         </Grid.RowDefinitions>
 
         <!--  header  -->
-
         <controls:PageHeader Content="Settings Page" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
@@ -59,7 +58,6 @@
         </controls:PageHeader>
 
         <!--  #region content  -->
-
         <Pivot x:Name="MyPivot" Grid.Row="1">
             <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="Settings">
                 <ScrollViewer Margin="0,12,-12,0" HorizontalContentAlignment="Left" VerticalScrollBarVisibility="Auto">

@@ -1,14 +1,12 @@
+using DomoticzUWP.Models;
 using DomoticzUWP.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.UI;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 
 namespace DomoticzUWP.ViewModels
-{
+{    
     public class SettingsPageViewModel : DomoticzUWP.Mvvm.ViewModelBase
     {
         public SettingsPartViewModel SettingsPartViewModel { get; } = new SettingsPartViewModel();
@@ -17,6 +15,9 @@ namespace DomoticzUWP.ViewModels
 
     public class SettingsPartViewModel : Mvvm.ViewModelBase
     {
+        private ObservableCollection<Device> _DevicesItems = new ObservableCollection<Device>();
+        public ObservableCollection<Device> DevicesItems { get { return _DevicesItems; } set { Set(ref _DevicesItems, value); base.RaisePropertyChanged(); } }
+
         Services.SettingsServices.SettingsService _settings;
 
         public async Task AsyncTestConnection()
